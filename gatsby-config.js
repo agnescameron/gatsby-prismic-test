@@ -30,7 +30,13 @@ module.exports = {
     {
       resolve: `gatsby-source-prismic-graphql`,
       options: {
-        repositoryName: 'shannon-test'
+        repositoryName: 'shannon-test',
+        pages: [{
+          type: 'Article',          // Custom type of the document
+          match: '/articles/:uid',   // Pages will be generated in this pattern
+          path: '/articles-preview', // Placeholder route for previews
+          component: require.resolve('./src/templates/article.js') // Template file
+        }]
       }
     },
   ],
