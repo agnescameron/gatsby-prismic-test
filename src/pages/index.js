@@ -1,6 +1,7 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 
+import { linkResolver } from "../utils/linkResolver"
 import Layout from "../components/layout"
 import { RichText } from "prismic-reactjs"
 
@@ -14,6 +15,7 @@ export const query = graphql`
           _meta {
             tags
             uid
+            type
           }
         }
       }
@@ -29,7 +31,13 @@ export default function Home({ data }) {
       <div>
         { 
           articles.map( (article, index) => { 
-            return <h1 key={index}>{article.node.title[0].text}</h1>
+            return (
+              <li  key={index}>
+                <Link to={linkResolver(article.node._meta)}>
+                  {article.node.title[0].text}
+                </Link>
+              </li>
+              )
           })
         }
       </div>
